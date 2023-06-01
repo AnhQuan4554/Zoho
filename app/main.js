@@ -10,14 +10,29 @@ const getResult = async (module) => {
   }
 };
 
-ZOHO.embeddedApp.on("PageLoad", async function (data) {
+ZOHO.embeddedApp.on("PageLoad", async function () {
   const rs = await getResult("Leads");
-  console.log(rs);
+
+  var dataRender = [];
+  let data = null;
+  data = rs.map((item) => ({
+    title: item.Company,
+    start: item.Modified_Time,
+    description: [
+      {
+        id: item.id,
+        lastName: item.Last_Name,
+      },
+    ],
+  }));
+  console.log(data);
+  // handle calender
   var calendarEl = document.getElementById("calendar");
   var events = [
     {
       title: rs[0].Modified_Time,
       start: "2023-05-01",
+      backgroundColor: "#FF0000",
     },
     {
       title: rs[1].Modified_Time,
@@ -30,9 +45,10 @@ ZOHO.embeddedApp.on("PageLoad", async function (data) {
   ];
   var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: "dayGridMonth",
-    events: events, // Sử dụng mảng dữ liệu sự kiện để hiển thị tên người trong lịch
+    events: data, // Sử dụng mảng dữ liệu sự kiện để hiển thị tên người trong lịch
   });
 
   calendar.render();
+  // end handle calendar
 });
 ZOHO.embeddedApp.init();
