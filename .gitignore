@@ -1,7 +1,7 @@
 ZET-debug.log
-cert.pem
+
 dist/
-key.pem
+
 node_modules/
 package-lock.json
 
