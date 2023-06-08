@@ -91,12 +91,9 @@
 
         var recordData = {
           Company: formData.Company,
-          First_Name: formData.FirstName,
-          Email: formData.email,
         };
         const rs = await getResult("Leads");
-        await addLeadRecord("Leads", recordData);
-        console.log(rs);
+        // await addLeadRecord("Leads", recordData);
       });
       ZOHO.embeddedApp.init();
     </script>
